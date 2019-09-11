@@ -14,6 +14,7 @@
 [ -n "$AWS_PROFILE" ] || export AWS_PROFILE=eb-cli
 
 AWS_CONFIG_FILE=${HOME}/.aws/config
+AWS_CREDENTIALS_FILE=${HOME}/.aws/credentials
 
 # Set deployment environment name
 export GITHUB_ENVIRONMENT_NAME=`cat $GITHUB_EVENT_PATH | ${HOME}/bin/JSON.sh | grep '\["deployment","environment"]' | cut -f2 | sed -e 's/"//g'`
@@ -21,15 +22,24 @@ export GITHUB_ENVIRONMENT_NAME=`cat $GITHUB_EVENT_PATH | ${HOME}/bin/JSON.sh | g
 # Set up eb profile
 mkdir ${HOME}/.aws
 touch $AWS_CONFIG_FILE
+touch $AWS_CREDENTIALS_FILE
 chmod 600 $AWS_CONFIG_FILE
+chmod 600 $AWS_CREDENTIALS_FILE
 
 cat << EOF > $AWS_CONFIG_FILE
 [profile ${AWS_PROFILE}]
 output = ${AWS_DEFAULT_OUTPUT}
 region = ${AWS_DEFAULT_REGION}
+EOF
+
+cat << EOF > $AWS_CREDENTIALS_FILE
+[${AWS_PROFILE}]
 aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
+
+cat $AWS_CONFIG_FILE
+ls -alh ${HOME}/.aws
 
 # Pending
 #${HOME}/bin/deployment-create-status pending
