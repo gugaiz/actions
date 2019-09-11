@@ -32,7 +32,7 @@ aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
 
 # Pending
-${HOME}/bin/deployment-create-status pending
+#${HOME}/bin/deployment-create-status pending
 
 # Execute
 output=$( sh -c "eb $*" )
@@ -41,7 +41,7 @@ output=$( sh -c "eb $*" )
 RESULT=$?
 if [ 0 != "${RESULT}" ]; then
   echo "Failed '$*'! Exit code '${RESULT}' is not equal to 0"
-  ${HOME}/bin/deployment-create-status failure
+  #${HOME}/bin/deployment-create-status failure
   echo "$output"
   exit ${RESULT}
 fi
@@ -53,6 +53,6 @@ echo "$output" > "${HOME}/${GITHUB_ACTION}.${AWS_DEFAULT_OUTPUT}"
 echo "$output"
 
 # Success
-${HOME}/bin/deployment-create-status success
+#${HOME}/bin/deployment-create-status success
 
 exit 0
