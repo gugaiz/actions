@@ -38,15 +38,6 @@ aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
 
-echo "AWS_PROFILE"
-echo $AWS_PROFILE
-
-echo "AWS_ACCESS_KEY_ID"
-echo $AWS_ACCESS_KEY_ID
-
-cat $AWS_CONFIG_FILE
-ls -alh ${HOME}/.aws
-
 # Pending
 #${HOME}/bin/deployment-create-status pending
 
