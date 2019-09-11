@@ -17,7 +17,7 @@ AWS_CONFIG_FILE=${HOME}/.aws/config
 AWS_CREDENTIALS_FILE=${HOME}/.aws/credentials
 
 # Set deployment environment name
-export GITHUB_ENVIRONMENT_NAME=`cat $GITHUB_EVENT_PATH | ${HOME}/bin/JSON.sh | grep '\["deployment","environment"]' | cut -f2 | sed -e 's/"//g'`
+#export GITHUB_ENVIRONMENT_NAME=`cat $GITHUB_EVENT_PATH | ${HOME}/bin/JSON.sh | grep '\["deployment","environment"]' | cut -f2 | sed -e 's/"//g'`
 
 # Set up eb profile
 mkdir ${HOME}/.aws
@@ -37,6 +37,12 @@ cat << EOF > $AWS_CREDENTIALS_FILE
 aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
+
+echo "AWS_PROFILE"
+echo $AWS_PROFILE
+
+echo "AWS_ACCESS_KEY_ID"
+echo $AWS_ACCESS_KEY_ID
 
 cat $AWS_CONFIG_FILE
 ls -alh ${HOME}/.aws
